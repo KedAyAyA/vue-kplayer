@@ -4,9 +4,9 @@
 	else if(typeof define === 'function' && define.amd)
 		define([], factory);
 	else if(typeof exports === 'object')
-		exports["someLibName"] = factory();
+		exports["VueAudioPlayer"] = factory();
 	else
-		root["someLibName"] = factory();
+		root["VueAudioPlayer"] = factory();
 })(typeof self !== 'undefined' ? self : this, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -94,6 +94,8 @@ return /******/ (function(modules) { // webpackBootstrap
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["a"] = ({
@@ -123,7 +125,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_AudioPlayer_vue__ = __webpack_require__(0);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_6bdd132d_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_AudioPlayer_vue__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_e3c5169c_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_AudioPlayer_vue__ = __webpack_require__(10);
 function injectStyle (ssrContext) {
   __webpack_require__(3)
 }
@@ -138,12 +140,12 @@ var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-6bdd132d"
+var __vue_scopeId__ = "data-v-e3c5169c"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
   __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_AudioPlayer_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_6bdd132d_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_AudioPlayer_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_e3c5169c_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_AudioPlayer_vue__["a" /* default */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -164,7 +166,7 @@ var content = __webpack_require__(4);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(6)("503250e2", content, true);
+var update = __webpack_require__(6)("22a9a831", content, true);
 
 /***/ }),
 /* 4 */
@@ -175,7 +177,7 @@ exports = module.exports = __webpack_require__(5)(true);
 
 
 // module
-exports.push([module.i, "\n.audio-player[data-v-6bdd132d] {\n  height: 80px;\n  border: 1px solid #eee;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n}\n.audio-player__content[data-v-6bdd132d] {\n    color: yellow;\n}\n", "", {"version":3,"sources":["/Users/caoxun/Documents/work/mylib/vue-audio-player/src/components/AudioPlayer.vue"],"names":[],"mappings":";AACA;EACE,aAAa;EACb,uBAAuB;EACvB,+BAA+B;UACvB,uBAAuB;CAChC;AACD;IACI,cAAc;CACjB","file":"AudioPlayer.vue","sourcesContent":["\n.audio-player[data-v-6bdd132d] {\n  height: 80px;\n  border: 1px solid #eee;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n}\n.audio-player__content[data-v-6bdd132d] {\n    color: yellow;\n}\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n@-webkit-keyframes rotate-data-v-e3c5169c {\n0% {\n    -webkit-transform: rotate(0);\n            transform: rotate(0);\n}\n100% {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg);\n}\n}\n@keyframes rotate-data-v-e3c5169c {\n0% {\n    -webkit-transform: rotate(0);\n            transform: rotate(0);\n}\n100% {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg);\n}\n}\n.audio-player[data-v-e3c5169c] {\n  height: 80px;\n  border: 1px solid #eee;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n}\n.audio-player__control-img[data-v-e3c5169c] {\n    line-height: 80px;\n}\n.audio-player__control-avatar[data-v-e3c5169c] {\n    margin-top: 5px;\n    width: 70px;\n    height: 70px;\n    border-radius: 100%;\n    -webkit-animation: 3s linear infinite rotate-data-v-e3c5169c;\n            animation: 3s linear infinite rotate-data-v-e3c5169c;\n}\n", "", {"version":3,"sources":["/Users/caoxun/Documents/work/mylib/vue-audio-player/src/components/AudioPlayer.vue"],"names":[],"mappings":";AACA;AACA;IACI,6BAA6B;YACrB,qBAAqB;CAChC;AACD;IACI,kCAAkC;YAC1B,0BAA0B;CACrC;CACA;AACD;AACA;IACI,6BAA6B;YACrB,qBAAqB;CAChC;AACD;IACI,kCAAkC;YAC1B,0BAA0B;CACrC;CACA;AACD;EACE,aAAa;EACb,uBAAuB;EACvB,+BAA+B;UACvB,uBAAuB;CAChC;AACD;IACI,kBAAkB;CACrB;AACD;IACI,gBAAgB;IAChB,YAAY;IACZ,aAAa;IACb,oBAAoB;IACpB,6DAA6D;YACrD,qDAAqD;CAChE","file":"AudioPlayer.vue","sourcesContent":["\n@-webkit-keyframes rotate-data-v-e3c5169c {\n0% {\n    -webkit-transform: rotate(0);\n            transform: rotate(0);\n}\n100% {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg);\n}\n}\n@keyframes rotate-data-v-e3c5169c {\n0% {\n    -webkit-transform: rotate(0);\n            transform: rotate(0);\n}\n100% {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg);\n}\n}\n.audio-player[data-v-e3c5169c] {\n  height: 80px;\n  border: 1px solid #eee;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n}\n.audio-player__control-img[data-v-e3c5169c] {\n    line-height: 80px;\n}\n.audio-player__control-avatar[data-v-e3c5169c] {\n    margin-top: 5px;\n    width: 70px;\n    height: 70px;\n    border-radius: 100%;\n    -webkit-animation: 3s linear infinite rotate-data-v-e3c5169c;\n            animation: 3s linear infinite rotate-data-v-e3c5169c;\n}\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -636,7 +638,7 @@ module.exports = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4QBYRXhpZgA
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"audio-player"},[_c('div',{staticClass:"audio-player__control"},[_c('img',{attrs:{"src":_vm.img,"alt":"","width":"80"}})]),_vm._v(" "),_c('div',{staticClass:"audio-player__progress"}),_vm._v(" "),_c('div',{staticClass:"audio-player__setting"})])}
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"audio-player"},[_c('div',{staticClass:"audio-player__control"},[_c('div',{staticClass:"audio-player__control-img"},[_c('img',{staticClass:"audio-player__control-avatar",attrs:{"src":_vm.img,"alt":""}})])]),_vm._v(" "),_c('div',{staticClass:"audio-player__progress"}),_vm._v(" "),_c('div',{staticClass:"audio-player__setting"})])}
 var staticRenderFns = []
 var esExports = { render: render, staticRenderFns: staticRenderFns }
 /* harmony default export */ __webpack_exports__["a"] = (esExports);

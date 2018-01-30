@@ -25,7 +25,7 @@ const webpackConfig = {
   },
   output: {
     path: config.build.assetsRoot,
-    library: "someLibName",
+    library: "VueAudioPlayer",
     libraryTarget: "umd",
     filename: "vueaudioplayer.js"
   },
