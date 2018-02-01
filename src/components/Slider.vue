@@ -4,15 +4,18 @@
         <div 
           class="slider-progress__bar" 
           ref="bar" 
-          :style="'width:' + barWidth + '%'">
+          :style="'width:' + position + '%'">
         </div>
         <div 
           class="slider-progress__roll" 
-          :style="'left:' + barWidth + '%'" 
+          :style="'left:' + position + '%'" 
           @mousedown="handleDownRoll"
           @mouseup="handleUpRoll"
           @mousemove="handleMoveRoll">
         </div>
+     </div>
+     <div class="slider-audio">
+       <audio :src="src"></audio>
      </div>
    </div>
 </template>
@@ -23,6 +26,7 @@ export default {
     return {
       initLeft: 0,
       barWidth: 0,
+      position: 0,
       record: false
     }
   },
@@ -34,28 +38,88 @@ export default {
     mode: {
       type: String,
       default: 'horizontal'
+    },
+    value: {
+      type: Number,
+      default: 0
+    },
+    min: {
+      type: Number,
+      default: 0
+    },
+    max: {
+      type: Number,
+      default: 100
+    },
+    src: {
+      type: String,
+      default: ''
+    }
+  },
+  watch: {
+    value (oldv, newv) {
+      this.culPosition()
     }
   },
   methods: {
     handleBar (e) {
-      console.log(e)
       let left = e.clientX
-      let width = this.$refs.barback.clientWidth
-      let percent = ((left - this.initLeft) / width * 100).toFixed(2)
-      console.log(percent)
-      this.barWidth = percent
+      this.convertPosToVal(left)
     },
     handleDownRoll (e) {
       this.record = true
       console.log('down')
+      document.addEventListener('mousemove', this.handleMoveRoll)
+      document.addEventListener('mouseup', this.handleUpRoll)
     },
     handleMoveRoll (e) {
       if (this.record) {
         console.log('move')
+        this.convertPosToVal(e.clientX)
       }
     },
     handleUpRoll (e) {
       this.record = false
+      console.log('up')
+      document.removeEventListener('mousemove', this.handleMoveRoll)
+      document.removeEventListener('mouseup', this.handleUpRoll)
+    },
+    convertPosToVal (left) {
+      left = this.fixPositionBound(left)
+      let percent = (left - this.initLeft) / this.barWidth
+      let value = percent * (this.max - this.min) + this.min
+      this.$emit('input', value)
+      this.$emit('change', value)
+    },
+    culPosition () {
+      let percent = (this.value / (this.max - this.min) * 100).toFixed(2)
+      this.setPosition(percent)
+    },
+    setPosition (percent) {
+      this.position = percent
+    },
+    resetSize () {
+      this.initLeft = this.$refs.bar.getBoundingClientRect().left
+      this.barWidth = this.$refs.barback.clientWidth
+    },
+    fixPositionBound (left) {
+      this.resetSize()
+      if (left < this.initLeft) {
+        left = this.initLeft
+      }
+      if (left > this.initLeft + this.barWidth) {
+        left = this.initLeft + this.barWidth
+      }
+      return left
+    },
+    fixValueBound (value) {
+      if (value < this.min) {
+        value = this.min
+      }
+      if (value > this.max) {
+        value = this.max
+      }
+      return value
     }
   }
 }
@@ -92,5 +156,9 @@ export default {
       z-index: 200;
       user-select: none;
     }
+  }
+
+  .slider-audio {
+    display: none;
   }
 </style>

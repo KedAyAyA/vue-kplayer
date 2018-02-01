@@ -2,7 +2,9 @@
   <div class="audio-player">
     <div class="audio-player__progress">
       <div class="audio-player__progress-slider">
-        <slider></slider>
+        <slider 
+          v-model="value"
+          @change="handleSliderChange"></slider>
       </div>
       <div class="audio-player__progress-time">00:42:32 / 00:56:00</div>
     </div>
@@ -33,7 +35,13 @@ import Slider from './Slider.vue'
 export default {
   data () {
     return {
-      img: dImg
+      img: dImg,
+      value: 0
+    }
+  },
+  methods: {
+    handleSliderChange (value) {
+      console.log(value)
     }
   },
   components: {
