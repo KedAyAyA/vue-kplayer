@@ -1,38 +1,46 @@
 <template>
    <div class="slider">
-     <div class="slider-progress" @click="handleBar" ref="barback">
+     <div 
+      class="slider-progress" 
+      :class="{'slider-progress--vertical': isVertical, 'slider-progress--small': size === 'small'}"
+      :style="(isVertical ? `height: ${height}px` : '')"
+      @click="handleBar" 
+      ref="barback">
         <div 
-          class="slider-progress__bar" 
+          class="slider-progress__bar"
           ref="bar" 
-          :style="'width:' + position + '%'">
+          :style="(isVertical ? 'height:' : 'width:') + position + '%'">
         </div>
         <div 
           class="slider-progress__roll" 
-          :style="'left:' + position + '%'" 
+          :style="(isVertical ? 'bottom:' : 'left:') + position + '%'" 
           @mousedown="handleDownRoll"
           @mouseup="handleUpRoll"
           @mousemove="handleMoveRoll">
         </div>
      </div>
-     <div class="slider-audio">
-       <audio :src="src"></audio>
-     </div>
    </div>
 </template>
 <script>
-
+/**
+ * Todo
+ * 1.add disable to limit
+ */
 export default {
   data () {
     return {
-      initLeft: 0,
+      initSide: 0,
       barWidth: 0,
       position: 0,
       record: false
     }
   },
   mounted () {
-    console.log(this.$refs.bar.getBoundingClientRect().left)
-    this.initLeft = this.$refs.bar.getBoundingClientRect().left
+    // console.log(this.$refs.bar.getBoundingClientRect().left)
+    this.initSide = this.isVertical
+      ? this.$refs.bar.getBoundingClientRect().bottom
+      : this.$refs.bar.getBoundingClientRect().left
+    this.culPosition()
   },
   props: {
     mode: {
@@ -51,9 +59,13 @@ export default {
       type: Number,
       default: 100
     },
-    src: {
+    height: {
+      type: Number,
+      default: 0
+    },
+    size: {
       type: String,
-      default: ''
+      default: 'normal'
     }
   },
   watch: {
@@ -61,10 +73,15 @@ export default {
       this.culPosition()
     }
   },
+  computed: {
+    isVertical () {
+      return this.mode === 'vertical'
+    }
+  },
   methods: {
     handleBar (e) {
-      let left = e.clientX
-      this.convertPosToVal(left)
+      let pos = this.isVertical ? e.clientY : e.clientX
+      this.convertPosToVal(pos)
     },
     handleDownRoll (e) {
       this.record = true
@@ -75,7 +92,7 @@ export default {
     handleMoveRoll (e) {
       if (this.record) {
         console.log('move')
-        this.convertPosToVal(e.clientX)
+        this.convertPosToVal(this.isVertical ? e.clientY : e.clientX)
       }
     },
     handleUpRoll (e) {
@@ -84,9 +101,10 @@ export default {
       document.removeEventListener('mousemove', this.handleMoveRoll)
       document.removeEventListener('mouseup', this.handleUpRoll)
     },
-    convertPosToVal (left) {
-      left = this.fixPositionBound(left)
-      let percent = (left - this.initLeft) / this.barWidth
+    convertPosToVal (pos) {
+      pos = this.fixPositionBound(pos)
+      let percent = Math.abs(pos - this.initSide) / this.barWidth
+      console.log(percent)
       let value = percent * (this.max - this.min) + this.min
       this.$emit('input', value)
       this.$emit('change', value)
@@ -99,18 +117,31 @@ export default {
       this.position = percent
     },
     resetSize () {
-      this.initLeft = this.$refs.bar.getBoundingClientRect().left
-      this.barWidth = this.$refs.barback.clientWidth
+      this.initSide = this.isVertical
+        ? this.$refs.bar.getBoundingClientRect().bottom
+        : this.$refs.bar.getBoundingClientRect().left
+      this.barWidth = this.isVertical
+        ? this.$refs.barback.clientHeight
+        : this.$refs.barback.clientWidth
     },
-    fixPositionBound (left) {
+    fixPositionBound (pos) {
       this.resetSize()
-      if (left < this.initLeft) {
-        left = this.initLeft
+      if (this.isVertical) {
+        if (pos > this.initSide) {
+          pos = this.initSide
+        }
+        if (pos < this.initSide - this.barWidth) {
+          pos = this.initSide - this.barWidth
+        }
+      } else {
+        if (pos < this.initSide) {
+          pos = this.initSide
+        }
+        if (pos > this.initSide + this.barWidth) {
+          pos = this.initSide + this.barWidth
+        }
       }
-      if (left > this.initLeft + this.barWidth) {
-        left = this.initLeft + this.barWidth
-      }
-      return left
+      return pos
     },
     fixValueBound (value) {
       if (value < this.min) {
@@ -156,9 +187,38 @@ export default {
       z-index: 200;
       user-select: none;
     }
-  }
 
-  .slider-audio {
-    display: none;
+    &--vertical {
+      width: 6px;
+      margin: 10px 16px;
+      position: relative;
+      .slider-progress {
+        &__roll {
+          position: absolute;
+          top: auto;
+          left: auto;
+          margin-left: 3px;
+          transform: translate(-50%, 50%);
+        }
+        &__bar {
+          position: absolute;
+          width: 6px;
+          bottom: 0;
+        }
+      }
+    }
+    &--small {
+      width: 4px;
+      .slider-progress {
+        &__roll {
+          width: 6px;
+          height: 6px;
+          margin-left: 2px;
+        }
+        &__bar {
+          width: 4px;
+        }
+      }
+    }
   }
 </style>
