@@ -12,6 +12,9 @@
     <div class="audio-player__control">
       <div class="audio-player__control-img">
         <img :src="img" alt="" class="audio-player__control-avatar" :class="{'audio-player--rotate': isPlaying}">
+        <i class="fa fa-music audio-player__animate-music" aria-hidden="true" :class="{'audio-player--music': isPlaying}"></i>
+        <i class="fa fa-music audio-player__animate-music" aria-hidden="true" style="animation-delay: 2s;" :class="{'audio-player--music': isPlaying}"></i>
+        <i class="fa fa-music audio-player__animate-music" aria-hidden="true" style="animation-delay: 4s;" :class="{'audio-player--music': isPlaying}"></i>
       </div>
       <div class="audio-player__control-icons">
         <i 
@@ -143,7 +146,7 @@ export default {
     handleCanPlay () {
       let audio = this.getAudioElement()
       this.max = this.duration = audio.duration
-      console.log('canplay')
+      this.$emit('canplay')
     },
     handleEnded () {
       console.log('ended')
@@ -155,8 +158,9 @@ export default {
       this.$emit('error', audio.error)
     },
     handleProgress () {
-      // let audio = this.getAudioElement()
-      // console.log('progress', audio.buffered)
+      let audio = this.getAudioElement()
+      console.log(audio.buffer)
+      console.log('progress')
     },
     handleEventPause () {
       this.status = 'pause'
@@ -225,11 +229,35 @@ export default {
       transform: rotate(360deg)
     }
   }
+
+  @keyframes music {
+    0% {
+      transform: translate3d(0);
+    }
+
+    50% {
+      opacity: 0.8;
+    }
+
+    100% {
+      transform: translate(100px, -15px) rotate(1320deg);
+      opacity: 0;
+    }
+  }
   .audio-player {
     height: 80px;
     border: 1px solid #eee;
     box-sizing: border-box;
     
+    &__animate {
+      &-music {
+        position: absolute;
+        top: 20px;
+        left: 50px;
+        opacity: 0;
+      }
+    }
+
     &__control {
       float: left;
       margin-left: -100%;
@@ -237,6 +265,7 @@ export default {
       position: relative;
       &-img {
         // line-height: 80px;
+        margin-left: 4px;
         float: left;
       }
       &-avatar {
@@ -244,6 +273,8 @@ export default {
         width: 70px;
         height: 70px;
         border-radius: 100%;
+        animation: 3s linear infinite rotate;
+        animation-play-state: paused;
       }
       &-icons {
         font-size: 20px;
@@ -312,7 +343,11 @@ export default {
     }
 
     &--rotate {
-      animation: 3s linear infinite rotate;
+      animation-play-state: running;
+    }
+
+    &--music {
+      animation: 6s linear infinite music;
     }
   }
 </style>

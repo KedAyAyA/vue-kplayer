@@ -174,12 +174,12 @@ export default {
     }
 
     &__roll {
-      width: 14px;
-      height: 14px;
-      border: 3px solid #409eff;
+      width: 10px;
+      height: 10px;
+      border: 2px solid #409eff;
       border-radius: 50%;
       position: absolute;
-      top: -7px;
+      top: -4px;
       left: 40%;
       background-color: #fff;
       transform: translateX(-50%);

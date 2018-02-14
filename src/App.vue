@@ -30,6 +30,7 @@ import Slider from './components/Slider.vue'
 import AudioPlayer from './components/AudioPlayer'
 
 export default {
+  // http://fs.pc.kugou.com/201802121727/3ed397455236944785427fc095f0da06/G010/M0A/1B/08/Sg0DAFT-vv6ARc7oALjd4pW9RV4518.mp3
   data () {
     return {
       src: '',
